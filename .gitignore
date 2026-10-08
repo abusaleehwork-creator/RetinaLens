@@ -13,3 +13,4 @@ __pycache__/
 *.pkl
 *.csv
 !data/README.md
+!models/retinalens_model.joblib

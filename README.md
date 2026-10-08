@@ -73,10 +73,10 @@ The project follows a reusable ML pipeline:
 
 The project compares the same evaluation procedure across models and stores the results in `reports/model_results.md`.
 
-Baseline result (illustrative example after local training):
-- Logistic Regression: accuracy ≈ 0.75, recall ≈ 0.61, ROC-AUC ≈ 0.83
+Validated local holdout results:
+- Logistic Regression: accuracy 0.753, precision 0.893, recall 0.610, F1 0.725, ROC-AUC 0.828
 
-These are sample project results and should be interpreted carefully. Model performance is not clinical validation and should not be used for patient care.
+These metrics are from the project’s local evaluation pipeline and should be interpreted carefully. They are not clinical validation and should not be used for patient care.
 
 ## Architecture and project structure
 
@@ -151,13 +151,16 @@ python -m pytest -q
 
 ## Deployment
 
-This project is set up to be deployable on Streamlit Community Cloud. The app uses relative paths and does not rely on local machine-specific paths.
+This project is prepared for Streamlit Community Cloud. The app uses project-relative paths and the trained pipeline is stored at `models/retinalens_model.joblib`. That specific model artifact is included in Git so Streamlit Cloud can load it without retraining.
 
 For deployment:
-1. Push the repo to GitHub.
-2. Connect the repo to Streamlit Community Cloud.
-3. Ensure `requirements.txt` and `app.py` are present.
-4. Verify the model artifact is available in `models/`.
+1. Train the model locally with `python train_model.py`.
+2. Push the repository, including `models/retinalens_model.joblib`, to GitHub.
+3. In Streamlit Community Cloud, create an app from that GitHub repository.
+4. Select the repository branch and set the app file path to `app.py`.
+5. Deploy, then open the public app URL and test both navigation and a sample prediction.
+
+Do not deploy until the model artifact is present in the GitHub branch selected by Streamlit. Deploying is a manual GitHub/Streamlit authorization step; this repository has not yet been published or deployed.
 
 ## Limitations
 
